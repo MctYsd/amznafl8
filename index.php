@@ -15,29 +15,9 @@
 
 $mes='
     <h2>amazonからの御駄賃を計算</h2>
-    
     <a href="https://affiliate.amazon.co.jp/home" target="_blank">ホーム</a> > アカウントの管理 > <a href="https://affiliate.amazon.co.jp/home/account/payment/history" target="_blank">支払い履歴の確認</a><br>
     のページでcntrl+A で選択してフォームにコピペして送信！
-
 ';
-
-/**
- * こんなデータが入ってくるのを想定
- * 
-Jul 01 2024	05/2024コミッション収入	¥*,***.	¥*,***.
-Jun 01 2024	04/2024コミッション収入	¥*,***.	¥*,***.
-May 01 2024	03/2024コミッション収入	¥***.	¥***.
-Apr 29 2024	ギフト券による支払い	
--¥**,***.
-¥0.
-Apr 01 2024	02/2024コミッション収入	¥*,***.	¥*,***.
-Mar 01 2024	01/2024コミッション収入	¥***.	¥***.
-Feb 01 2024	12/2023コミッション収入	¥***.	¥***.
-Jan 30 2024	ギフト券による支払い	
--¥*,***.
-¥0.
-
- */
 
  if(!empty($_REQUEST["text"])){
 
@@ -82,12 +62,12 @@ Jan 30 2024	ギフト券による支払い
     $date2 = new DateTime();
     $interval = $date1->diff($date2);
 
-    echo "" .date("Y/m ~ ",strtotime($startDate)).date("Y/m"). "\n (";
-    echo $interval->y . "年" . $interval->m . "ヶ月" . ")\n<br>";
+    echo "" .date("Y/m ~ ",strtotime($startDate)).date("Y/m"). " (";
+    echo $interval->y . "年" . $interval->m . "ヶ月" . ")<br>";
 
    // 合計金額を表示    
-    echo "<h3>ギフト券による支払い額の合計: ¥" . number_format($totalAmount) . "\n</h3><hr>";
-    echo '<a href="'.$_SERVER["PHP_SELF"].'">HOME</a>' . "\n";
+    echo "<h3>ギフト券による支払い額の合計: ¥" . number_format($totalAmount) . "</h3><hr>";
+    echo '<a href="'.$_SERVER["PHP_SELF"].'">HOME</a>';
 
  }else{
     echo$mes;
