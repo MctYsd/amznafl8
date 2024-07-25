@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
 
 	<meta charset="utf-8" />
@@ -10,7 +9,6 @@
 	<link rel="icon" href="favicon.ico" type="image/png">
 
 </head>
-
 <body>
 
 <?php
@@ -26,41 +24,26 @@ $mes='
 /**
  * こんなデータが入ってくるのを想定
  * 
-Jul 01 2024	05/2024コミッション収入	¥84.	¥528.
-Jun 01 2024	04/2024コミッション収入	¥189.	¥444.
-May 01 2024	03/2024コミッション収入	¥255.	¥255.
+Jul 01 2024	05/2024コミッション収入	¥*,***.	¥*,***.
+Jun 01 2024	04/2024コミッション収入	¥*,***.	¥*,***.
+May 01 2024	03/2024コミッション収入	¥***.	¥***.
 Apr 29 2024	ギフト券による支払い	
--¥1,421.
+-¥**,***.
 ¥0.
-Apr 01 2024	02/2024コミッション収入	¥1,211.	¥1,421.
-Mar 01 2024	01/2024コミッション収入	¥140.	¥210.
-Feb 01 2024	12/2023コミッション収入	¥70.	¥70.
+Apr 01 2024	02/2024コミッション収入	¥*,***.	¥*,***.
+Mar 01 2024	01/2024コミッション収入	¥***.	¥***.
+Feb 01 2024	12/2023コミッション収入	¥***.	¥***.
 Jan 30 2024	ギフト券による支払い	
--¥637.
-¥0.
-Jan 01 2024	11/2023コミッション収入	¥207.	¥637.
-Dec 01 2023	10/2023コミッション収入	¥153.	¥430.
-Oct 01 2023	08/2023コミッション収入	¥125.	¥277.
-Sep 01 2023	07/2023コミッション収入	¥23.	¥152.
-Aug 01 2023	06/2023コミッション収入	¥37.	¥129.
-Jul 01 2023	05/2023コミッション収入	¥92.	¥92.
-Jun 29 2023	ギフト券による支払い	
--¥622.
+-¥*,***.
 ¥0.
 
  */
 
  if(!empty($_REQUEST["text"])){
 
-    // 入力データ
-    $data =$_REQUEST["text"];
-    
-    //echo $data;
-    //echo $date."=>".$amount."<hr>"; 
-
     // 正規表現で「ギフト券による支払い」を抽出
     // amazonのさじ加減で変える場合もありえる。改行が含まれる正規表現であることに注意。
-    preg_match_all("/(\w{3} \d{2} \d{4})\tギフト券による支払い\t(\r\n|\n|\r)-¥([\d,]+)\./", $data, $matches, PREG_SET_ORDER);
+    preg_match_all("/(\w{3} \d{2} \d{4})\tギフト券による支払い\t(\r\n|\n|\r)-¥([\d,]+)\./", $_REQUEST["text"], $matches, PREG_SET_ORDER);
 
     //var_dump($matches);
 
@@ -85,16 +68,15 @@ Jun 29 2023	ギフト券による支払い
     }
 
     // 日付の降順で並べ替え
-    usort($payments, function ($a, $b) {
-        return strtotime($b['date']) - strtotime($a['date']);
-    });
+    // usort($payments, function ($a, $b) {
+    //     return strtotime($b['date']) - strtotime($a['date']);
+    // });
 
     // 結果を表示
     foreach ($payments as $payment) {
         echo date("Y/m - ",strtotime($payment['date'])) . " ¥" . number_format($payment['amount']) . "<hr>\n";
     }
 
- 
     // 勤続期間を「○年○ヶ月」で表示
     $date1 = new DateTime($startDate);
     $date2 = new DateTime();
