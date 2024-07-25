@@ -9,7 +9,6 @@
 	<title>amazon affiliate Allowance</title>
 	<link rel="icon" href="favicon.ico" type="image/png">
 
-
 </head>
 
 <body>
